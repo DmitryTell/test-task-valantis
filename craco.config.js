@@ -12,6 +12,7 @@ module.exports = {
           "@components": "./src/components",
           "@interface": "./src/interface",
           "@layout": "./src/layout",
+          "page": "./src/page",
           "@shared": "./src/shared",
           "@style": "./src/style",
         },

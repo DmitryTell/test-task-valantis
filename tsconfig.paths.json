@@ -12,10 +12,13 @@
                 "src/components/"
             ],
             "@interface/": [
-                "./src/interface"
+                "./src/interface/"
             ],
             "@layout": [
-                "./src/layout"
+                "./src/layout/"
+            ],
+            "@page": [
+                "src/page/"
             ],
             "@shared/": [
                 "src/shared/"
