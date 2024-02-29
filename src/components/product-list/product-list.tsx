@@ -16,8 +16,9 @@ export const ProductList: FC<IProductList> = ({ products, isLoading }) => (
       ? ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].map((item) => (
         <Styled.ItemLoading key={ item } />
       ))
-      : products.map((product) => (
-        <Styled.Item key={ product.id }>
+      : products.map((product, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Styled.Item key={ String(index) }>
           <Styled.IdBlock>
             <Styled.IdTitle>ID</Styled.IdTitle>
             <Styled.IdText>{ product.id }</Styled.IdText>

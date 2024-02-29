@@ -10,7 +10,7 @@ export const ErrorBlock = styled.div`
 `;
 
 export const ErrorText = styled.p`
-    font-size: 20px;
+    font-size: 28px;
     line-height: 100%;
     color: #e51111;
 `;
