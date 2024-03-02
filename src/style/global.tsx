@@ -38,4 +38,22 @@ export const GlobalStyle = createGlobalStyle`
             background: #b1b1b1;
         }
     }
+
+    @-webkit-keyframes button-loading {
+        0% {
+            background: #002149;
+        }
+        100% {
+            background: #00479e;
+        }
+    }
+
+    @keyframes button-loading {
+        0% {
+            background: #002149;
+        }
+        100% {
+            background: #00479e;
+        }
+    }
 `;

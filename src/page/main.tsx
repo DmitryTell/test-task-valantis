@@ -6,7 +6,8 @@ import {
 } from '@components/';
 import { IProduct } from '@interface/';
 
-import { getIds, getItems } from '../api';
+import { getAllIds, getIds, getItems } from '../api';
+import { filterIds } from '../helper';
 
 
 export const Main = () => {
@@ -21,7 +22,7 @@ export const Main = () => {
   const [isError, setIsError] = useState<string | null>(null);
 
   useEffect(() => {
-    getIds(0, true)
+    getAllIds()
       .then((data) => {
         const result = Math.ceil(data.length / 50);
 
@@ -37,7 +38,7 @@ export const Main = () => {
     setIsLoading(true);
     setIsError(null);
 
-    getIds(currentPage, false)
+    getIds(currentPage)
       .then((data) => {
         const result = Object.values(data);
 
@@ -53,16 +54,10 @@ export const Main = () => {
     if (ids) {
       getItems(ids)
         .then((data) => {
-          setIsError(null);
+          const result = Object.values(data);
 
-          if (data) {
-            const result = Object.values(data);
-
-            setIsLoading(false);
-            setProducts(result as IProduct[]);
-          } else {
-            setIsError('Список пуст');
-          }
+          setIsLoading(false);
+          setProducts(result as IProduct[]);
         })
         .catch((error) => {
           setIsLoading(false);
@@ -75,6 +70,9 @@ export const Main = () => {
     <Layout>
       <Title />
       <Filter
+        brand={ brand }
+        name={ name }
+        price={ price }
         setBrand={ setBrand }
         setName={ setName }
         setPrice={ setPrice }
@@ -86,6 +84,7 @@ export const Main = () => {
       ) }
       <PagNav
         currentPage={ currentPage }
+        isLoading={ isLoading }
         lastPage={ lastPage }
         setCurrentPage={ setCurrentPage }
       />
