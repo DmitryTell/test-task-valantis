@@ -4,6 +4,7 @@ import * as Styled from './input.styled';
 
 
 interface IInput extends HTMLProps<HTMLInputElement> {
+  disabled?: boolean;
   type: 'number' | 'text';
   placeholder: string;
   value: string;
@@ -11,7 +12,13 @@ interface IInput extends HTMLProps<HTMLInputElement> {
 }
 
 export const Input: FC<IInput> = ({
-  type, placeholder, value, onChange
+  disabled, type, placeholder, value, onChange
 }) => (
-  <Styled.Input placeholder={ placeholder } type={ type } value={ value } onChange={ onChange } />
+  <Styled.Input
+    disabled={ disabled }
+    placeholder={ placeholder }
+    type={ type }
+    value={ value }
+    onChange={ onChange }
+  />
 );

@@ -5,7 +5,7 @@ import * as Styled from './button.styled';
 
 interface IButton extends HTMLProps<HTMLButtonElement> {
   text: string;
-  disabled: boolean;
+  disabled?: boolean;
   onClick: React.MouseEventHandler;
 }
 

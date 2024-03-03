@@ -13,7 +13,7 @@ interface IProductList {
 export const ProductList: FC<IProductList> = ({ products, isLoading }) => (
   <Styled.List>
     { isLoading
-      ? ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].map((item) => (
+      ? ['1', '2', '3', '4', '5'].map((item) => (
         <Styled.ItemLoading key={ item } />
       ))
       : products.map((product, index) => (

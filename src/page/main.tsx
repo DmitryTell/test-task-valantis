@@ -6,7 +6,9 @@ import {
 } from '@components/';
 import { IProduct } from '@interface/';
 
-import { getAllIds, getIds, getItems } from '../api';
+import {
+  getAllIds, getIds, getFilteredIds, getItems
+} from '../api';
 import { filterIds } from '../helper';
 
 
@@ -22,42 +24,59 @@ export const Main = () => {
   const [isError, setIsError] = useState<string | null>(null);
 
   useEffect(() => {
-    getAllIds()
-      .then((data) => {
-        const result = Math.ceil(data.length / 50);
-
-        setLastPage(result);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setIsError(error.message);
-      });
-  }, []);
-
-  useEffect(() => {
     setIsLoading(true);
-    setIsError(null);
 
-    getIds(currentPage)
-      .then((data) => {
-        const result = Object.values(data);
+    if (!name && !price && !brand) {
+      getAllIds()
+        .then((data) => {
+          const result = Math.ceil(data.length / 50);
 
-        setIds(result as string[]);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setIsError(error.message);
-      });
-  }, [currentPage]);
+          setLastPage(result);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setIsError(error.message);
+        });
+      getIds(currentPage)
+        .then((data) => {
+          const result = Object.values(data);
+
+          setIds(result as string[]);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setIsError(error.message);
+        });
+    } else {
+      getFilteredIds(name, Number(price), brand)
+        .then((data) => {
+          const resultLastPage = Math.ceil(data.length / 50);
+          const resultIds = filterIds(data as string[], currentPage);
+
+          setLastPage(resultLastPage);
+          setIds(resultIds);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setIsError(error.message);
+        });
+    }
+  }, [brand, currentPage, isError, name, price]);
 
   useEffect(() => {
     if (ids) {
       getItems(ids)
         .then((data) => {
-          const result = Object.values(data);
-
           setIsLoading(false);
-          setProducts(result as IProduct[]);
+
+          if (data.length) {
+            const result = Object.values(data);
+
+            setProducts(result as IProduct[]);
+          } else {
+            setCurrentPage(1);
+            setIsError('Ничего не найдено');
+          }
         })
         .catch((error) => {
           setIsLoading(false);
@@ -78,12 +97,13 @@ export const Main = () => {
         setPrice={ setPrice }
       />
       { isError ? (
-        <ErrorBlock isError={ isError } />
+        <ErrorBlock isError={ isError } setIsError={ setIsError } />
       ) : (
         <ProductList isLoading={ isLoading } products={ products } />
       ) }
       <PagNav
         currentPage={ currentPage }
+        isError={ isError }
         isLoading={ isLoading }
         lastPage={ lastPage }
         setCurrentPage={ setCurrentPage }

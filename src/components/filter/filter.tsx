@@ -25,9 +25,27 @@ export const Filter: FC<IFilter> = ({
   <Styled.FilterContainer>
     <Styled.FilterTitle>Фильтровать по:</Styled.FilterTitle>
     <Styled.FilterForm>
-      <Input placeholder='Название' type='text' value={ name } onChange={ (e) => setName(e.target.value) } />
-      <Input placeholder='Цена' type='number' value={ price } onChange={ (e) => setPrice(e.target.value) } />
-      <Input placeholder='Бренд' type='text' value={ brand } onChange={ (e) => setBrand(e.target.value) } />
+      <Input
+        disabled={ Boolean(price || brand) }
+        placeholder='Название'
+        type='text'
+        value={ name }
+        onChange={ (e) => setName(e.target.value) }
+      />
+      <Input
+        disabled={ Boolean(name || brand) }
+        placeholder='Цена'
+        type='number'
+        value={ price }
+        onChange={ (e) => setPrice(e.target.value) }
+      />
+      <Input
+        disabled={ Boolean(name || price) }
+        placeholder='Бренд'
+        type='text'
+        value={ brand }
+        onChange={ (e) => setBrand(e.target.value) }
+      />
     </Styled.FilterForm>
   </Styled.FilterContainer>
 );
