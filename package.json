@@ -1,4 +1,5 @@
 {
+  "homepage": "https://DmitryTell.github.io/test-task-valantis",
   "name": "test-task-valantis",
   "version": "0.1.0",
   "private": true,
@@ -48,13 +49,14 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "craco test",
     "eject": "craco eject",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
     "eslint": "npm run lint && npm run lint:fix",
-    "stylelint": "npx stylelint \"**/*.tsx\"",
-    "deploy": "gh-pages -d build"
+    "stylelint": "npx stylelint \"**/*.tsx\""
   },
   "eslintConfig": {
     "extends": [
