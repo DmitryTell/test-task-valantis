@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# Тестовый проект компании Valantis
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Отображает карточки с описанием товаров. Описание включает в себя:
 
-## Available Scripts
+- ID товара
+- Наименование товара
+- Цена товара
+- Бренд (при наличии)
 
-In the project directory, you can run:
+На странице не более 50 карточек. Есть возможность переключения страниц (постраничная навигация). Имеется обработка ошибок. Если прилетает ошибка, то вместо загрузки карточек, отображается оповещение об ошибке. Также есть возможность перезагрузить страницу. Есть возможность фильтрации по наименованию, цене, либо бренду товара. Если по заданному фильтру ничего не найдено, отображается ошибка с соответствующим сообщением.
 
-### `npm start`
+## Технологии
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Проект написан на Typescript с использованием библиотеки React
+- Для работы со стилями используется Styled Components
+- Для работы с API используется Axios
+- Для работы с компонентами используются хуки useState и useEffect
+- Для форматирования кода используется ES Lint
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## API
 
-### `npm test`
+- http://api.valantis.store:40000/ - адрес для локального запуска
+- https://api.valantis.store:41000/ - адрес для деплоя
+  в файле src/api/host.ts.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Если отображается ошибка "Ошибка авторизации", необходимо изменить дату в строке с паролем в файле src/api/headers.ts.
 
-### `npm run build`
+## Сборка и запуск
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Установка зависимостей: npm install
+- Запуск с локального сервера: npm run start
+- Продакт-сборка проекта: npm run build
+- Деплой проекта на gh-pages: npm run deploy
