@@ -4,14 +4,28 @@ import { host } from './host';
 import { headers } from './headers';
 
 
-export const getIds = async (currentPage: number) => {
-  const body = {
-    action: 'get_ids',
-    params: {
-      offset: (currentPage - 1) * 50,
-      limit: currentPage === 1 ? 49 : 50,
-    },
+interface IParams {
+  offset: number;
+  limit: number;
+}
+
+interface IBody {
+  action: string;
+  params?: IParams;
+}
+
+export const getIds = async (currentPage = 0) => {
+  const params: IParams = {
+    offset: (currentPage - 1) * 50,
+    limit: currentPage === 1 ? 49 : 50,
   };
+  const body: IBody = {
+    action: 'get_ids',
+  };
+
+  if (currentPage > 0) {
+    body.params = params;
+  }
 
   try {
     const response = await axios.post(host, body, { headers });

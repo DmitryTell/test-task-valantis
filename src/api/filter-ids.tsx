@@ -1,4 +1,4 @@
-export const filterIds = (ids: string[], currentPage: number) => {
+export const filterIds = (currentPage: number, ids: string[]) => {
   const result = [];
 
   // eslint-disable-next-line no-plusplus

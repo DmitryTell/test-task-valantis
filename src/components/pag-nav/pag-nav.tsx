@@ -21,24 +21,16 @@ export const PagNav: FC<IPagNav> = ({
   setCurrentPage,
 }) => (
   <Styled.PagNav>
-    { isLoading ? (
-      <Styled.LoadingButton />
-    ) : (
-      <Button
-        disabled={ Boolean(currentPage === 1 || isError) }
-        text='Назад'
-        onClick={ () => setCurrentPage(currentPage - 1) }
-      />
-    ) }
+    <Button
+      disabled={ Boolean(currentPage === 1 || isError || isLoading) }
+      text='Назад'
+      onClick={ () => setCurrentPage(currentPage - 1) }
+    />
     <Styled.Page>{ currentPage }</Styled.Page>
-    { isLoading ? (
-      <Styled.LoadingButton />
-    ) : (
-      <Button
-        disabled={ Boolean(currentPage === lastPage || isError) }
-        text='Вперед'
-        onClick={ () => setCurrentPage(currentPage + 1) }
-      />
-    ) }
+    <Button
+      disabled={ Boolean(currentPage === lastPage || isError || isLoading) }
+      text='Вперед'
+      onClick={ () => setCurrentPage(currentPage + 1) }
+    />
   </Styled.PagNav>
 );

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { host } from './host';
 import { headers } from './headers';
+import { filterIds } from './filter-ids';
 
 
 interface IParams {
@@ -15,7 +16,7 @@ interface IBody {
   params?: IParams;
 }
 
-export const getFilteredIds = async (name: string, price: number, brand: string) => {
+export const getFilteredIds = async (name: string, price: number, brand: string, currentPage = 0) => {
   const body: IBody = {
     action: 'filter',
   };
@@ -40,6 +41,12 @@ export const getFilteredIds = async (name: string, price: number, brand: string)
   try {
     const response = await axios.post(host, body, { headers });
     const data = await response.data;
+
+    if (currentPage > 0) {
+      const result = filterIds(currentPage, data.result);
+
+      return [...new Set(result)];
+    }
 
     return [...new Set(data.result)];
   } catch (error) {

@@ -7,14 +7,6 @@ export const PagNav = styled.nav`
     gap: 15px;
 `;
 
-export const LoadingButton = styled.div`
-    width: 120px;
-    height: 30px;
-    border-radius: 6px;
-    -webkit-animation: button-loading 1.5s linear infinite alternate both;
-    animation: button-loading 1.5s linear infinite alternate both;
-`;
-
 export const Page = styled.span`
     font-size: 20px;
     font-weight: 600;

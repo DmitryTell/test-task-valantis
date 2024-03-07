@@ -2,88 +2,63 @@ import { useState, useEffect } from 'react';
 
 import { Layout } from '@layout';
 import {
-  Title, Filter, ProductList, PagNav, ErrorBlock
+  Title, Filter, ItemList, PagNav, ErrorBlock
 } from '@components/';
-import { IProduct } from '@interface/';
+import { IItem } from '@interface/';
 
 import {
-  getAllIds, getIds, getFilteredIds, getItems
+  getIds, getFilteredIds, getItems
 } from '../api';
-import { filterIds } from '../helper';
 
 
 export const Main = () => {
   const [name, setName] = useState<string>('');
   const [price, setPrice] = useState<string>('');
   const [brand, setBrand] = useState<string>('');
-  const [ids, setIds] = useState<string[] | null>(null);
-  const [products, setProducts] = useState<IProduct[] | []>([]);
+  const [items, setItems] = useState<IItem[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [lastPage, setLastPage] = useState<number>(1);
   const [isError, setIsError] = useState<string | null>(null);
 
   useEffect(() => {
-    setIsLoading(true);
+    const handleGetAllIds = async () => {
+      try {
+        let allIds;
+        let resultIds;
 
-    if (!name && !price && !brand) {
-      getAllIds()
-        .then((data) => {
-          const result = Math.ceil(data.length / 50);
+        if (!name && !price && !brand) {
+          allIds = await getIds();
+          resultIds = await getIds(currentPage);
+        } else {
+          allIds = await getFilteredIds(name, Number(price), brand);
+          resultIds = await getFilteredIds(name, Number(price), brand, currentPage);
+        }
 
-          setLastPage(result);
-        })
-        .catch((error) => {
-          setIsLoading(false);
+        const resultItems = await getItems(resultIds as string[]);
+
+        setIsLoading(false);
+
+        if (resultItems?.length) {
+          setLastPage(Math.ceil(allIds.length / 50));
+          setItems(resultItems);
+        } else {
+          setIsError('Ничего не найдено');
+          setCurrentPage(1);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
           setIsError(error.message);
-        });
-      getIds(currentPage)
-        .then((data) => {
-          const result = Object.values(data);
-
-          setIds(result as string[]);
-        })
-        .catch((error) => {
           setIsLoading(false);
-          setIsError(error.message);
-        });
-    } else {
-      getFilteredIds(name, Number(price), brand)
-        .then((data) => {
-          const resultLastPage = Math.ceil(data.length / 50);
-          const resultIds = filterIds(data as string[], currentPage);
+        }
+      }
+    };
 
-          setLastPage(resultLastPage);
-          setIds(resultIds);
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          setIsError(error.message);
-        });
+    if (!isError) {
+      setIsLoading(true);
+      handleGetAllIds();
     }
-  }, [brand, currentPage, isError, name, price]);
-
-  useEffect(() => {
-    if (ids) {
-      getItems(ids)
-        .then((data) => {
-          setIsLoading(false);
-
-          if (data.length) {
-            const result = Object.values(data);
-
-            setProducts(result as IProduct[]);
-          } else {
-            setCurrentPage(1);
-            setIsError('Ничего не найдено');
-          }
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          setIsError(error.message);
-        });
-    }
-  }, [ids]);
+  }, [brand, currentPage, name, price, isError]);
 
   return (
     <Layout>
@@ -99,7 +74,7 @@ export const Main = () => {
       { isError ? (
         <ErrorBlock isError={ isError } setIsError={ setIsError } />
       ) : (
-        <ProductList isLoading={ isLoading } products={ products } />
+        <ItemList isLoading={ isLoading } items={ items } />
       ) }
       <PagNav
         currentPage={ currentPage }
