@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { host } from './host';
 import { headers } from './headers';
-import { filterIds } from './filter-ids';
+import { filterIds } from '../helpers';
 
 
 interface IParams {

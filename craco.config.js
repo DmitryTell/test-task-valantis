@@ -10,7 +10,7 @@ module.exports = {
         aliases: {
           "@api": "./src/api",
           "@components": "./src/components",
-          "@helper": "./src/helper",
+          "@helpers": "./src/helpers",
           "@interface": "./src/interface",
           "@layout": "./src/layout",
           "page": "./src/page",
