@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/test-task-valantis/static/js/main.fc03ce14.js",
+    "main.js": "/test-task-valantis/static/js/main.fc155c5d.js",
     "index.html": "/test-task-valantis/index.html",
-    "main.fc03ce14.js.map": "/test-task-valantis/static/js/main.fc03ce14.js.map"
+    "main.fc155c5d.js.map": "/test-task-valantis/static/js/main.fc155c5d.js.map"
   },
   "entrypoints": [
-    "static/js/main.fc03ce14.js"
+    "static/js/main.fc155c5d.js"
   ]
 }
